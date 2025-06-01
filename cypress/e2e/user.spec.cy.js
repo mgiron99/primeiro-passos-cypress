@@ -17,7 +17,10 @@ describe('Orange HRM tests', () => {
     dateField:"[placeholder='yyyy-dd-mm']",
     closeButton: '.--close',
     submitButton: '[type=submit]',
-    successAlert: 'body'
+    successAlert: 'body',
+    genericComboBox: '.oxd-select-text--active',
+    genericComboBoxOptionList:'.oxd-select-dropdown',
+    checkGender: '.oxd-radio-wrapper'
   }
   it.only('User Info Update - Success ', () => {
     cy.visit('/auth/login')
@@ -33,15 +36,23 @@ describe('Orange HRM tests', () => {
     cy.get(selectorList.genericField).eq(3).clear().type('Theus')
     cy.get(selectorList.genericField).eq(4).clear().type('123456')
     cy.get(selectorList.genericField).eq(5).clear().type('654321')
-    cy.get(selectorList.genericField).eq(6).clear().type('2025-23-05')
+    cy.get(selectorList.genericField).eq(6).clear().type('00000')
+    cy.get(selectorList.genericField).eq(7).clear().type('2030-05-31')
     cy.get(selectorList.closeButton).click()
-   cy.get(selectorList.genericField).eq(7).clear().type('1999-11-03')
-   cy.get(selectorList.closeButton).click()
-   cy.get(selectorList.submitButton).eq(0).click()
-   cy.get(selectorList.successAlert).should('contain', 'Successfully Updated')
-   
+    cy.get(selectorList.genericField).eq(10).clear().type('1999-11-03')
+    cy.get(selectorList.closeButton).click()
+    cy.get(selectorList.genericComboBox).eq(0).click()
+    cy.get(selectorList.genericComboBoxOptionList).contains('Brazilian').click()
+    cy.get(selectorList.genericComboBox).eq(1).click()
+    cy.get(selectorList.genericComboBoxOptionList).contains('Other').click()
+    cy.get(selectorList.genericComboBox).eq(2).click()
+    cy.get(selectorList.genericComboBoxOptionList).contains('AB+').click()
+    cy.get(selectorList.checkGender).eq(0).contains('Male').click()
+    cy.get(selectorList.submitButton).eq(0).click()
+    cy.get(selectorList.successAlert).should('contain', 'Successfully Updated') 
 
 
+  
   })
   it('Login Failed', () => {
     cy.visit('/auth/login')
