@@ -1,8 +1,12 @@
 import userData from '../../fixtures/users/userData.json'
 import LoginTest from '../loginTest/appDrive'
 import dashboardTest from '../dashboardTest/appDrive'
+
+const faker = require('@faker-js/faker')
+
 const login = new LoginTest() 
 const dashboard = new dashboardTest()
+
 describe('Orange HRM tests', () => {
   it('succesfull login', () => {
     login.accessLoginPage() 
